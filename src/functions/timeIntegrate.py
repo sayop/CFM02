@@ -58,9 +58,9 @@ def timeIntegrate(inputDict):
    while True:
       nIter += 1
       # Estimate dt from Courant number
-      dt, Pe = computeTimeStep(Cr,imax) 
+      dt, Pe, Df = computeTimeStep(Cr,imax) 
       t += dt
-      print "nIter = %s" % nIter, ", Time = %s" % t, ", dt = %s" % dt, ", Pe = %s" % Pe
+      print "nIter = %s" % nIter, ", Time = %s" % t, ", dt = %s" % dt, ", Pe = %s" % Pe, ", Diffusion no = ", Df
 
       # IMPLICIT solution: will run only if alphaImp is non-zero.
       # EXPLICIT solution: will run only if alphaImp is zero.
@@ -99,6 +99,13 @@ def computeTimeStep(Cr,imax):
    for i in range(imax-1):
       if i == 0: continue
       dtMin = min(dtMin, Cr * dx / flowVars.U[i])
+      # Peclet number: ratio of convection over diffusion
       Pe    = max(Pe, flowVars.U[i] * dx / flowVars.gamma[i])
 
-   return dtMin, Pe
+   # diffusion number
+   dfMin = 99999.9
+   for i in range(imax-1):
+      if i == 0: continue
+      dfMin = min(dfMin, flowVars.gamma[i] * dtMin / dx ** 2)
+
+   return dtMin, Pe, dfMin
