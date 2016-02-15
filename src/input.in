@@ -1,0 +1,16 @@
+#grid dimension
+iDim		100
+xmin		0
+xmax		1
+#flow properties
+U		1
+gamma		0.1
+#boundary condition
+phiL		1.0
+phiR		0.0
+#simulation setup
+tStart		0.0
+tEnd		1.0
+maxIter		1000
+Courant		2.0
+implicit	0.5
