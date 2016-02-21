@@ -1,11 +1,11 @@
 from variables import flowVars, domainVars
 import matplotlib.pyplot as plt
 
-def plotSolution():
+def plotSolution(time):
    x = domainVars.x
    phi = flowVars.phi
    imax = len(phi)
-   pltFile = 'solution.png'
+   pltFile = 'solution_%5.3f.png' % float(time)
    MinX = min(x)
    MaxX = max(x)
    MinY = min(phi)
@@ -21,7 +21,7 @@ def plotSolution():
    plt.ylabel('phi', fontsize=22)
 
    plt.grid(True)
-   plt.text(0.01, 0.2, 'Grid size = %s' % len(phi), fontsize=22 )
+   #plt.text(0.01, 0.2, 'Grid size = %s' % len(phi), fontsize=22 )
    ax = plt.gca()
    xlabels = plt.getp(ax, 'xticklabels')
    ylabels = plt.getp(ax, 'yticklabels')

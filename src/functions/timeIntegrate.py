@@ -5,6 +5,7 @@ from bc import *
 from variables import *
 from init import setInitialCondition
 from numericalSolution import *
+from post import *
 
 def timeIntegrate(inputDict):
    tStart  = float(inputDict['tStart'])
@@ -43,9 +44,6 @@ def timeIntegrate(inputDict):
    # This will populate the first and last elements of A matrix and Q vector
    updateDirichletBC(inputDict,imax)
  
-   # Set initial condition
-   # This will populate inner points of phi vector
-   #setInitialCondition(imax)
 
    #
    # Time Marching:
@@ -54,6 +52,11 @@ def timeIntegrate(inputDict):
    print '# Time integration starts at t = %s' % tStart
    print '=============================================='
    t = tStart
+   # Set initial condition
+   # This will populate inner points of phi vector
+   setInitialCondition(imax)
+   # plot Initial condition
+   plotSolution(t)
    nIter = 0
    while True:
       nIter += 1
@@ -87,6 +90,9 @@ def timeIntegrate(inputDict):
    # time elapsed:
    elapsedTime = (time.clock() - start)
    print "## Elapsed time: ", elapsedTime
+
+   # plot solution
+   plotSolution(t)
 
 
 

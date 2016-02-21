@@ -8,7 +8,7 @@ from IO import *
 from domain import *
 from init import *
 from timeIntegrate import *
-from post import *
+#from post import *
 
 # read input parameters from input.in
 inputDict = readInput()
@@ -23,4 +23,4 @@ initFlowVars(inputDict)
 timeIntegrate(inputDict)
 
 # plot PHI
-plotSolution()
+#plotSolution(t)

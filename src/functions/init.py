@@ -22,7 +22,7 @@ def initFlowVars(inputDict):
 def setInitialCondition(imax):
    print '# Setting up initial condition...'
    # Initialize phi vector with given equation
-   print domainVars.x
+   #print domainVars.x
    for i in range(imax-1):
       if i == 0: continue
       flowVars.phi[i] = 1.0 / np.sqrt((0.4 * np.pi)) * np.exp( -2.5 * (domainVars.x[i] - 10.0) ** 2 )
