@@ -13,6 +13,7 @@ def timeIntegrate(inputDict):
    Cr      = float(inputDict['Courant'])
    imax    = int(inputDict['iDim'])
    maxIter = int(inputDict['maxIter'])
+   nIterWrite   = int(inputDict['nIterWrite'])
 
    # start to count time for calculting computation performance
    start = time.clock()
@@ -81,6 +82,7 @@ def timeIntegrate(inputDict):
 
       #print flowVars.exac
       if (t >= tEnd or nIter >= maxIter): break
+      if (nIter % nIterWrite == 0): plotSolution(t)
 
    # EXPLICIT solution: will run only if alphaImp is zero.
    # This will solve following relation:

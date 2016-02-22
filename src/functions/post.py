@@ -8,8 +8,8 @@ def plotSolution(time):
    pltFile = 'solution_%5.3f.png' % float(time)
    MinX = min(x)
    MaxX = max(x)
-   MinY = min(phi)
-   MaxY = 1.1*max(phi)
+   MinY = -0.1#min(phi)
+   MaxY = 1.0#1.1*max(phi)
 
    p = plt.plot(x,phi, 'k-', label='Numerical solution')
    plt.setp(p, linewidth='3.0')
