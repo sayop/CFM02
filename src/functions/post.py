@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 def plotSolution(time):
    x = domainVars.x
    phi = flowVars.phi
+   exac = flowVars.exac
    imax = len(phi)
    pltFile = 'solution_%5.3f.png' % float(time)
    MinX = min(x)
@@ -12,6 +13,7 @@ def plotSolution(time):
    MaxY = 1.0#1.1*max(phi)
 
    p = plt.plot(x,phi, 'k-', label='Numerical solution')
+   p = plt.plot(x,exac, 'r--', label='Exact solution')
    plt.setp(p, linewidth='3.0')
 
    plt.axis([MinX,MaxX, MinY, MaxY])
@@ -28,7 +30,7 @@ def plotSolution(time):
    plt.setp(xlabels, fontsize=18)
    plt.setp(ylabels, fontsize=18)
    plt.legend(
-             loc='lower left',
+             loc='upper right',
              borderpad=0.25,
              handletextpad=0.25,
              borderaxespad=0.25,

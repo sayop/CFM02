@@ -33,7 +33,7 @@ def findExactSolution(imax,t):
    for i in range(imax-1):
       if i == 0: continue
       if flowVars.gamma[i] != 0.0:
-         flowVars.exac[i] = 1.0 / np.sqrt(0.4 * np.pi * flowVars.gamma[i] * t) * np.exp( -(domainVars.x[i] - flowVars.U[i] * t) ** 2 / (4.0 * flowVars.gamma[i] * t) )
+         flowVars.exac[i] = 1.0 / np.sqrt(4.0 * np.pi * flowVars.gamma[i] * t) * np.exp( -(domainVars.x[i] - flowVars.U[i] * t) ** 2 / (4.0 * flowVars.gamma[i] * t) )
       elif flowVars.gamma[i] == 0.0:
          flowVars.exac[i] = 1.0 / np.sqrt(0.4 * np.pi) * np.exp( -2.5 * (domainVars.x[i] - flowVars.U[i] * t) ** 2 )
 

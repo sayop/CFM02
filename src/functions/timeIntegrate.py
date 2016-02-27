@@ -57,6 +57,7 @@ def timeIntegrate(inputDict):
    # This will populate inner points of phi vector
    setInitialCondition(imax)
    # plot Initial condition
+   findExactSolution(imax,t)
    plotSolution(t)
    nIter = 0
    while True:
@@ -64,7 +65,7 @@ def timeIntegrate(inputDict):
       # Estimate dt from Courant number
       dt, Pe, Df = computeTimeStep(Cr,imax) 
       t += dt
-      print "nIter = %s" % nIter, ", Time = %s" % t, ", dt = %s" % dt, ", Pe = %s" % Pe, ", Diffusion no = ", Df
+      print "nIter = %s" % nIter, ", Time = %.4f" % t, ", dt = %.6f" % dt, ", Pe = %.3f" % Pe, ", Diffusion no = %.3f" % Df
 
       # IMPLICIT solution: will run only if alphaImp is non-zero.
       # EXPLICIT solution: will run only if alphaImp is zero.
@@ -82,7 +83,9 @@ def timeIntegrate(inputDict):
 
       #print flowVars.exac
       if (t >= tEnd or nIter >= maxIter): break
-      if (nIter % nIterWrite == 0): plotSolution(t)
+      if (nIter % nIterWrite == 0):
+         findExactSolution(imax,t)
+         plotSolution(t)
 
    # EXPLICIT solution: will run only if alphaImp is zero.
    # This will solve following relation:
@@ -94,6 +97,7 @@ def timeIntegrate(inputDict):
    print "## Elapsed time: ", elapsedTime
 
    # plot solution
+   findExactSolution(imax,t)
    plotSolution(t)
 
 

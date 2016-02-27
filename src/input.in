@@ -1,10 +1,10 @@
 #grid dimension
-iDim		1000
+iDim		2000
 xmin		5
 xmax		45
 #flow properties
 U		1
-gamma		0.0
+gamma		0.01
 #boundary condition
 phiL		0.0
 phiR		0.0
@@ -12,7 +12,7 @@ phiR		0.0
 tStart		10.0
 tEnd		20.0
 maxIter		100000
-Courant		1
-implicit	0.5
+Courant		2.0
+implicit	1.0
 #Post-Process
 nIterWrite	100
