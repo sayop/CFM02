@@ -1,4 +1,4 @@
-from variables import flowVars, domainVars
+from variables import flowVars, domainVars, postVars
 import matplotlib.pyplot as plt
 
 def plotSolution(time):
@@ -49,3 +49,65 @@ def plotSolution(time):
    plt.close()
 
    print "%s DONE!!" % (pltFile)
+
+   # write a CSVfile
+   csvFile = 'solution_%5.3f.csv' % float(time)
+   writeCSV(csvFile,x,phi,exac)
+
+def writeCSV(csvFile,x,phi,exac):
+   import csv
+   imax = len(x)
+   c = csv.writer(open(csvFile, "wb"))
+   c.writerow(["x","solution","exactSolution"])
+   for i in range(imax):
+      c.writerow([x[i], phi[i], exac[i]])
+   print "%s DONE!!" % (csvFile)
+
+
+def writeCSVtemporalPhi(csvFile,t,phi1,phi2):
+   import csv
+   imax = len(t)
+   c = csv.writer(open(csvFile, "wb"))
+   c.writerow(["t","xMeas1","xMeas2"])
+   for i in range(imax):
+      c.writerow([t[i], phi1[i], phi2[i]])
+   print "%s DONE!!" % (csvFile)
+
+
+
+def storeTemporalChange(tCurrent,iWriteCSV,xMeas1,xMeas2):
+   postVars.timeTrace.append(tCurrent)
+   # Search phi value at specified measurement position in x
+   x = domainVars.x
+   phi = flowVars.phi
+   imax = len(x)
+   for i in range(imax):
+      if i == 0: continue
+      # Find phi at xMeas1
+      if (xMeas1 >= x[i-1]) and (xMeas1 < x[i]):
+         distL = xMeas1 - x[i-1]
+         distR = x[i] - xMeas1
+         tmp = phi[i-1] + distL * phi[i] / (distL + distR)
+         postVars.phiMeasured1.append(tmp)
+
+      # Find phi at xMeas2
+      if (xMeas2 >= x[i-1]) and (xMeas2 < x[i]):
+         distL = xMeas2 - x[i-1]
+         distR = x[i] - xMeas2
+         tmp = phi[i-1] + distL * phi[i] / (distL + distR)
+         postVars.phiMeasured2.append(tmp)
+
+  
+   # When simulation ends, the stored temporal phi trace should be stored in separate CSV file.
+   if (iWriteCSV == 1):
+      csvFile = 'temporalPhiChange.csv'
+      writeCSVtemporalPhi(csvFile, postVars.timeTrace, postVars.phiMeasured1, postVars.phiMeasured2)
+ 
+def computeError(imax,phiN,phiE):
+   import numpy as np
+   # Calculate RMS of error
+   sumE = 0.0
+   for i in range(imax):
+      sumE += (phiN[i] - phiE[i]) ** 2
+   RMS = np.sqrt(sumE / imax)
+   return RMS

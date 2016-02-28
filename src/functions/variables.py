@@ -17,3 +17,8 @@ class simulationVars:
 class domainVars:
    x = []
    dx = 0.0
+
+class postVars:
+   timeTrace = []
+   phiMeasured1 = []
+   phiMeasured2 = []

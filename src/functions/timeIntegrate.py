@@ -1,6 +1,6 @@
 import numpy as np
 import time
-from discretization import updateAQMatrix
+from discretization import updateAQMatrix, updateQvector
 from bc import *
 from variables import *
 from init import setInitialCondition
@@ -14,6 +14,8 @@ def timeIntegrate(inputDict):
    imax    = int(inputDict['iDim'])
    maxIter = int(inputDict['maxIter'])
    nIterWrite   = int(inputDict['nIterWrite'])
+   xMeas1   = float(inputDict['xMeas1'])
+   xMeas2   = float(inputDict['xMeas2'])
 
    # start to count time for calculting computation performance
    start = time.clock()
@@ -58,19 +60,27 @@ def timeIntegrate(inputDict):
    setInitialCondition(imax)
    # plot Initial condition
    findExactSolution(imax,t)
-   plotSolution(t)
+   plotSolution(t)   
    nIter = 0
    while True:
+      # Store temporal change of dependent variable at two specified x-positions: xMeas1 and xMeas2.
+      storeTemporalChange(t,0,xMeas1,xMeas2)
       nIter += 1
       # Estimate dt from Courant number
       dt, Pe, Df = computeTimeStep(Cr,imax) 
       t += dt
-      print "nIter = %s" % nIter, ", Time = %.4f" % t, ", dt = %.6f" % dt, ", Pe = %.3f" % Pe, ", Diffusion no = %.3f" % Df
+      if (Pe < 9999.9) :
+         print "nIter = %s" % nIter, ", Time = %.4f" % t, ", dt = %.6f" % dt, ", Pe = %.3f" % Pe, ", Diffusion no = %.3f" % Df
+      else:
+         print "nIter = %s" % nIter, ", Time = %.4f" % t, ", dt = %.6f" % dt
 
       # IMPLICIT solution: will run only if alphaImp is non-zero.
       # EXPLICIT solution: will run only if alphaImp is zero.
       # Construct a coefficient matrix for system of linear equations
-      updateAQMatrix(imax,dt,alphaImp)
+      if alphaImp == 0:
+         updateQvector(imax,dt,alphaImp)
+      else:
+         updateAQMatrix(imax,dt,alphaImp)
 
       if alphaImp == 0.0:
          solveFullyExplicit(imax)
@@ -87,9 +97,6 @@ def timeIntegrate(inputDict):
          findExactSolution(imax,t)
          plotSolution(t)
 
-   # EXPLICIT solution: will run only if alphaImp is zero.
-   # This will solve following relation:
-   #   phi^(n+1) = phi^(n) + dt * f{phi^(n)} + dt * Q
 
    #
    # time elapsed:
@@ -99,7 +106,11 @@ def timeIntegrate(inputDict):
    # plot solution
    findExactSolution(imax,t)
    plotSolution(t)
-
+   # Store temporal change of dependent variable at two specified x-positions: xMeas1 and xMeas2.
+   storeTemporalChange(t,1,xMeas1,xMeas2)
+   # compute error that shows how far the numerical solution deviates from the exact solution.
+   rmsError = computeError(imax,flowVars.phi,flowVars.exac)
+   print '## RMS of errors: ', rmsError
 
 
 def computeTimeStep(Cr,imax):
@@ -112,7 +123,7 @@ def computeTimeStep(Cr,imax):
       if i == 0: continue
       dtMin = min(dtMin, Cr * dx / flowVars.U[i])
       # Peclet number: ratio of convection over diffusion
-      Pe    = max(Pe, flowVars.U[i] * dx / flowVars.gamma[i])
+      Pe    = max(Pe, flowVars.U[i] * dx / max(1.0e-99,flowVars.gamma[i]))
 
    # diffusion number
    dfMin = 99999.9

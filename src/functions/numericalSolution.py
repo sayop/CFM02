@@ -3,7 +3,8 @@ from variables import *
 
 def solveFullyExplicit(imax):
    for i in range(imax):
-      flowVars.phi[i] = simulationVars.Q[i] / simulationVars.A[i][i]
+      #flowVars.phi[i] = simulationVars.Q[i] / simulationVars.A[i][i]
+      flowVars.phi[i] = simulationVars.Q[i]
 
 def solveImplicit(imax):
    A = simulationVars.A

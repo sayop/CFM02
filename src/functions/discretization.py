@@ -1,6 +1,38 @@
 from variables import simulationVars, domainVars, flowVars
 import numpy as np
 
+def updateQvector(imax,dt,alphaImp):
+   # This is to only update Q vector for use of explicit scheme.
+   # If it runs with explicit, updating A matrix is not necessary. 
+   # Updating A matrix with explicit is redundant process.
+   f = np.zeros((imax,imax))
+
+   # Construct first f matrix
+   # f is a temporary matrix to store each of coefficients set associated with
+   # divergence and laplacian terms, respectively: f = f_divergence + f_laplacian
+   f = constructDivergenceTerm(f,imax)
+   f = constructLaplacianTerm(f,imax)
+   #
+   # This will populate the Q vector elements: RHSs
+   #
+   
+   for i in range(imax-1):
+      if i == 0: continue
+      # RHS-(1)
+      simulationVars.Q[i] = flowVars.phi[i]
+
+      # RHS-(2)
+      iL = i - 1
+      iR = i + 1
+      simulationVars.Q[i] += (1.0 - alphaImp) * f[i][i]  * flowVars.phi[i]  * dt
+      simulationVars.Q[i] += (1.0 - alphaImp) * f[i][iL] * flowVars.phi[iL] * dt
+      simulationVars.Q[i] += (1.0 - alphaImp) * f[i][iR] * flowVars.phi[iR] * dt
+
+      # RHS-(3)
+      simulationVars.Q[i] += dt * flowVars.sdot[i]
+   
+   
+
 def updateAQMatrix(imax,dt,alphaImp):
    # Updating A matrix and Q vector for implicit scheme!
    
