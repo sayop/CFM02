@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Test Matrices &mdash; Time Marching Problems 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Time Marching Problems 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Results" href="../index.html" />
+    <link rel="next" title="Problem1 - b" href="../b/contents.html" />
+    <link rel="prev" title="Results" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../b/contents.html" title="Problem1 - b"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Results"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Time Marching Problems 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Results</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="test-matrices">
+<h1>Test Matrices<a class="headerlink" href="#test-matrices" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="euler-equation-pure-convection-problem">
+<h2>Euler equation (Pure convection problem)<a class="headerlink" href="#euler-equation-pure-convection-problem" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Grid setups: N = 1001, 2001, 4001, 6001</li>
+<li>Different Couran&#8217;t number conditions: Cr = 0.25, 0.5, 0.75, 0.1 for N = 4001 only</li>
+<li>Test methods: Euler Explicit (EE), Euler Implicit (EI), and Crank-Nicolson (CR)</li>
+<li>No diffusivity: <span class="math">\(\Gamma\)</span> = 0</li>
+</ul>
+<div class="section" id="stability-check">
+<h3>Stability check<a class="headerlink" href="#stability-check" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Test on different time step</li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p class="first">Stability was checked on grid setup with N = 4001 with different time step conditions.</p>
+</li>
+<li><p class="first">If unstable solution appears with any inappropriate values, stability is NOT considered to be achieved.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="20%" />
+<col width="22%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Courant no. (dt)</th>
+<th class="head">EE</th>
+<th class="head">EI</th>
+<th class="head">CR</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0.25 (0.0025)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-odd"><td>0.5  (0.005)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-even"><td>0.75 (0.0075)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-odd"><td>0.1  (0.01)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+<p>(O: stable, X: unstable)</p>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Test on different grid resolution</li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p class="first">Stability was checked on different grid setup with fixed time step of dt = 0.005 [sec]</p>
+</li>
+<li><p class="first">Note that Courant number must vary for different grid size to fix the time step: Following Courant numbers in table were chosed to set the &#8216;dt&#8217; constant.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="18%" />
+<col width="20%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Number of nodes (Cr)</th>
+<th class="head">EE</th>
+<th class="head">EI</th>
+<th class="head">CR</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1001 (0.125)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-odd"><td>2001 (0.25)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-even"><td>4001 (0.5)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-odd"><td>6001 (0.75)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+<p>(O: stable, X: unstable)</p>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="burger-s-equation-convection-diffusion-problem">
+<h2>Burger&#8217;s equation (Convection + Diffusion problem)<a class="headerlink" href="#burger-s-equation-convection-diffusion-problem" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Grid setups: N = 1001, 2001, 4001, 6001</li>
+<li>Different Couran&#8217;t number conditions: Cr = 0.25, 0.5, 0.75, 0.1 for N = 4001 only</li>
+<li>Test methods: Euler Explicit, Euler Implicit, and Crank-Nicolson</li>
+<li>Diffusivity: <span class="math">\(\Gamma\)</span> = 0.01</li>
+</ul>
+<div class="section" id="id1">
+<h3>Stability check<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Test on different time step</li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p class="first">Stability was checked on grid setup with N = 4001 with different time step conditions.</p>
+</li>
+<li><p class="first">If unstable solution appears with any inappropriate values, stability is NOT considered to be achieved.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="20%" />
+<col width="22%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Courant no. (dt)</th>
+<th class="head">EE</th>
+<th class="head">EI</th>
+<th class="head">CR</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0.25 (0.0025)</td>
+<td>O</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-odd"><td>0.5  (0.005)</td>
+<td>O</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-even"><td>0.75 (0.0075)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-odd"><td>0.1  (0.01)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+<p>(O: stable, X: unstable)</p>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Test on different grid resolution</li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p class="first">Stability was checked on different grid setup with fixed time step of dt = 0.005 [sec]</p>
+</li>
+<li><p class="first">Note that Courant number must vary for different grid size to fix the time step: Following Courant numbers in table were chosed to set the &#8216;dt&#8217; constant.</p>
+</li>
+<li><p class="first"><em>Peclet</em> number are specifed in the following table. (Note: <em>Peclet</em> number can only be defined in diffusion term contained solution)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Number of nodes (Cr / Pe)</th>
+<th class="head">EE</th>
+<th class="head">EI</th>
+<th class="head">CR</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1001 (0.125 / 4.0)</td>
+<td>O</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-odd"><td>2001 (0.25 / 2.0)</td>
+<td>O</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-even"><td>4001 (0.5 / 1.0)</td>
+<td>O</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr class="row-odd"><td>6001 (0.75 / 0.667)</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+<p>(O: stable, X: unstable)</p>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Test Matrices</a><ul>
+<li><a class="reference internal" href="#euler-equation-pure-convection-problem">Euler equation (Pure convection problem)</a><ul>
+<li><a class="reference internal" href="#stability-check">Stability check</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#burger-s-equation-convection-diffusion-problem">Burger&#8217;s equation (Convection + Diffusion problem)</a><ul>
+<li><a class="reference internal" href="#id1">Stability check</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Results</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../b/contents.html"
+                        title="next chapter">Problem1 - b</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/Results/testMatrices/contents.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../b/contents.html" title="Problem1 - b"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Results"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Time Marching Problems 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Results</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Sayop Kim.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

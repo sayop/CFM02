@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Problem1 - d &mdash; Time Marching Problems 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Time Marching Problems 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Results" href="../index.html" />
+    <link rel="prev" title="Problem1 - c" href="../c/contents.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../c/contents.html" title="Problem1 - c"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Time Marching Problems 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Results</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="problem1-d">
+<h1>Problem1 - d<a class="headerlink" href="#problem1-d" title="Permalink to this headline">¶</a></h1>
+<p>Examine the numerical errors for different schemes as a function of the grid spacing and the integration time step. Evaluate the spatial and temporal accuracy of the numerical schemes.</p>
+<p>Here, temporal and spatial accuracies were evaluated using following parameter:</p>
+<div class="math">
+\[P_{temporal} = \frac{log(\frac{\phi_{2t} - \phi_{4t}}{\phi_{t} - \phi_{2t}})}{log(2)}\]</div>
+<div class="math">
+\[P_{spatial} = \frac{log(\frac{\phi_{2h} - \phi_{4h}}{\phi_{h} - \phi_{2h}})}{log(2)}\]</div>
+<div class="section" id="euler-equation-pure-convection-problem">
+<h2>Euler equation (Pure convection problem)<a class="headerlink" href="#euler-equation-pure-convection-problem" title="Permalink to this headline">¶</a></h2>
+<p>In this test, the Euler-Explicit scheme was not employed because it is unconditionally unstable method for pure convection problem.</p>
+<ol class="arabic simple">
+<li>Errors as a function of time step, dt</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>The evaluation of time step change effect was done for single case of grid size, N = 4001.</li>
+</ul>
+<div class="figure">
+<a class="reference internal image-reference" href="../../_images/EulerEqn_error_dt.png"><img alt="../../_images/EulerEqn_error_dt.png" src="../../_images/EulerEqn_error_dt.png" style="width: 480.0px; height: 300.0px;" /></a>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="32%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Courant no. (dt)</th>
+<th class="head">EI</th>
+<th class="head">CR</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0.25 (0.0025)</td>
+<td>0.0166148385052</td>
+<td>0.00099101659914</td>
+</tr>
+<tr class="row-odd"><td>0.5  (0.005)</td>
+<td>0.0281716938047</td>
+<td>0.00108091830901</td>
+</tr>
+<tr class="row-even"><td>0.75 (0.0075)</td>
+<td>0.0368227088826</td>
+<td>0.0012308579817</td>
+</tr>
+<tr class="row-odd"><td>0.1  (0.01)</td>
+<td>0.0436049875194</td>
+<td>0.00144069783592</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li>Evaluation of temporal accuracy <span class="math">\(P_{temporal}\)</span> defined below with different methods:<ul>
+<li><span class="math">\(P_{temporal}\)</span> for EI = 0.4173</li>
+<li><span class="math">\(P_{temporal}\)</span> for CR = 2.0007</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Errors as a function of grid spacing</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>The evaluation of grid resolution effect on error was done for single set of time step, dt = 0.005, so different Courant number.</li>
+</ul>
+<div class="figure">
+<a class="reference internal image-reference" href="../../_images/EulerEqn_error_dx.png"><img alt="../../_images/EulerEqn_error_dx.png" src="../../_images/EulerEqn_error_dx.png" style="width: 480.0px; height: 300.0px;" /></a>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="13%" />
+<col width="25%" />
+<col width="28%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Number of nodes (Cr)</th>
+<th class="head">dx</th>
+<th class="head">EI</th>
+<th class="head">CR</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1001 (0.125)</td>
+<td>0.04</td>
+<td>0.0294768440151</td>
+<td>0.0150567999236</td>
+</tr>
+<tr class="row-odd"><td>2001 (0.25)</td>
+<td>0.02</td>
+<td>0.0282487385682</td>
+<td>0.00395484817586</td>
+</tr>
+<tr class="row-even"><td>4001 (0.5)</td>
+<td>0.01</td>
+<td>0.0281716938047</td>
+<td>0.00108091830901</td>
+</tr>
+<tr class="row-odd"><td>6001 (0.75)</td>
+<td>0.00667</td>
+<td>0.0281685389275</td>
+<td>0.000547240822165</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li>Evaluation of spatial accuracy <span class="math">\(P_{spatial}\)</span> defined below with different methods:<ul>
+<li><span class="math">\(P_{spatial}\)</span> for EI = 3.9946</li>
+<li><span class="math">\(P_{spatial}\)</span> for CR = 1.9497</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="burger-s-equation-convection-diffusion">
+<h2>Burger&#8217;s equation (Convection + Diffusion)<a class="headerlink" href="#burger-s-equation-convection-diffusion" title="Permalink to this headline">¶</a></h2>
+<p>In this test, only a part of Euler-Explicit cases was employed for analysis because the method was unstable beyond certain value of Courant number.</p>
+<ol class="arabic simple">
+<li>Errors as a function of time step, dt</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>The evaluation of time step change effect was done for single case of grid size, N = 4001.</li>
+</ul>
+<div class="figure">
+<a class="reference internal image-reference" href="../../_images/BurgersEqn_error_dt.png"><img alt="../../_images/BurgersEqn_error_dt.png" src="../../_images/BurgersEqn_error_dt.png" style="width: 480.0px; height: 300.0px;" /></a>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="26%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Courant no. (dt)</th>
+<th class="head">EE</th>
+<th class="head">EI</th>
+<th class="head">CR</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0.25 (0.0025)</td>
+<td>0.00383043947008</td>
+<td>0.00340998441819</td>
+<td>8.76084904269e-05</td>
+</tr>
+<tr class="row-odd"><td>0.5  (0.005)</td>
+<td>0.00818535015496</td>
+<td>0.00646574830074</td>
+<td>9.55709046347e-05</td>
+</tr>
+<tr class="row-even"><td>0.75 (0.0075)</td>
+<td>inf</td>
+<td>0.00922821563363</td>
+<td>0.000108841001593</td>
+</tr>
+<tr class="row-odd"><td>0.1  (0.01)</td>
+<td>inf</td>
+<td>0.0117416771678</td>
+<td>0.000127423869135</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li>Evaluation of temporal accuracy <span class="math">\(P_{temporal}\)</span> defined below with different methods:<ul>
+<li><span class="math">\(P_{temporal}\)</span> for EI = 0.7879</li>
+<li><span class="math">\(P_{temporal}\)</span> for CR = 2.0001</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Errors as a function of grid spacing</li>
+</ol>
+<blockquote>
+<div><div class="figure">
+<a class="reference internal image-reference" href="../../_images/BurgersEqn_error_dx.png"><img alt="../../_images/BurgersEqn_error_dx.png" src="../../_images/BurgersEqn_error_dx.png" style="width: 480.0px; height: 300.0px;" /></a>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="10%" />
+<col width="21%" />
+<col width="21%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Number of nodes (Cr)</th>
+<th class="head">dx</th>
+<th class="head">EE</th>
+<th class="head">EI</th>
+<th class="head">CR</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1001 (0.125)</td>
+<td>0.04</td>
+<td>0.00829334418324</td>
+<td>0.00659287238512</td>
+<td>0.00136897946621</td>
+</tr>
+<tr class="row-odd"><td>2001 (0.25)</td>
+<td>0.02</td>
+<td>0.00818432743363</td>
+<td>0.00647642954911</td>
+<td>0.000350398456828</td>
+</tr>
+<tr class="row-even"><td>4001 (0.5)</td>
+<td>0.01</td>
+<td>0.00818535015496</td>
+<td>0.00646574830074</td>
+<td>9.55709046347e-05</td>
+</tr>
+<tr class="row-odd"><td>6001 (0.75)</td>
+<td>0.00667</td>
+<td>inf</td>
+<td>0.00646469348398</td>
+<td>4.83756513792e-05</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li>Evaluation of spatial accuracy <span class="math">\(P_{spatial}\)</span> defined below with different methods:<ul>
+<li><span class="math">\(P_{spatial}\)</span> for EI = 3.4465</li>
+<li><span class="math">\(P_{spatial}\)</span> for CR = 1.9990</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Problem1 - d</a><ul>
+<li><a class="reference internal" href="#euler-equation-pure-convection-problem">Euler equation (Pure convection problem)</a></li>
+<li><a class="reference internal" href="#burger-s-equation-convection-diffusion">Burger&#8217;s equation (Convection + Diffusion)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../c/contents.html"
+                        title="previous chapter">Problem1 - c</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/Results/d/contents.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../c/contents.html" title="Problem1 - c"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Time Marching Problems 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Results</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Sayop Kim.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
