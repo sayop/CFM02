@@ -4,6 +4,7 @@
 
 Plot :math:`\phi` vs. :math:`x` at :math:`t` = 20, 30, 40 and compare the numerical solution using the three methods with the analytical solution.
 
+All the test case shown here were done with single set of grid size, N = 4001, and time step, dt = 0.005. 
 
 -----------------------------------------
  Euler equation (Pure convection problem)
@@ -11,7 +12,7 @@ Plot :math:`\phi` vs. :math:`x` at :math:`t` = 20, 30, 40 and compare the numeri
 
 - CASE1: Euler-Explicit (EE) method
 
-  This case was NOT successfully done with stability.
+  This case was NOT successfully done with stability. Any change of time step and grid resolution didn't give stable solution because the Euler explicit for pure convection problem is unconditionally unstable.
 
 - CASE2: Euler-Implicit (EI) method
 

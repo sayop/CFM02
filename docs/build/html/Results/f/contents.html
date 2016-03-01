@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Problem1 - f &mdash; Time Marching Problems 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Time Marching Problems 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Results" href="../index.html" />
+    <link rel="prev" title="Problem1 - e" href="../e/contents.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../e/contents.html" title="Problem1 - e"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Time Marching Problems 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Results</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="problem1-f">
+<h1>Problem1 - f<a class="headerlink" href="#problem1-f" title="Permalink to this headline">¶</a></h1>
+<p>Discuss stability for different methods.</p>
+<ul class="simple">
+<li>Euler explicit method:<ul>
+<li>Euler explicit is conditionally stable for Burger&#8217;s equation, which is having diffusion term.</li>
+<li>This diffusion term tends to smooth the numerical solution out such that some possibility of instailiby appearance is reduced.</li>
+<li>However, the stability can be acquired with proper <em>Peclet</em> number criteria, <span class="math">\(Pe \leq 2\)</span></li>
+<li>Euler explicit is necessarily unstable for Euler equation which is NOT having a diffusion term.</li>
+<li>The central finite difference in Euler explicit does NOT guarantee the stability because numerical domain of influence of this scheme covers the redundant neighbor in pure convection problem.</li>
+<li>This type of central finite difference creates a truncation error which makes numerical solution unstable.</li>
+</ul>
+</li>
+<li>Euler implicit method:<ul>
+<li>This scheme is unconditionallyl stable.</li>
+<li>This means any choice of dt and grid space will give stable solution set with some possibility of inaccuracy.</li>
+</ul>
+</li>
+<li>Crank-Nicolson method:<ul>
+<li>This method of solution tends to be more stable than the Euler explicit even though it slows down the simulation.</li>
+</ul>
+</li>
+</ul>
+<p>Examine the maximum time step that leads to a stable solution.</p>
+<ul class="simple">
+<li>The maximum time step will depend on what type of solution method you use.</li>
+<li>Theoretically, Euler implicit will ensure you have stable solution with any time step choice if the equation is linear.</li>
+<li>The maximum time step you may choose for Euler explicit should be determined with consideration of <em>Peclet</em> number for Burger&#8217;s equation only. Euler equation will be 100% unstable.</li>
+</ul>
+<p>Which method provides the fastest solution for a given value of the numericall error?</p>
+<ul class="simple">
+<li>Euler explicit method will be fastest way of solving the problem if given equation contains the diffusion terms.</li>
+<li>Otherwise, for Euler equation with pure convection term, Crank-Nicolson scheme is the best solution for the faster solution rather than the Euler implicit.</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../e/contents.html"
+                        title="previous chapter">Problem1 - e</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/Results/f/contents.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../e/contents.html" title="Problem1 - e"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Time Marching Problems 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Results</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Sayop Kim.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

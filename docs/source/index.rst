@@ -3,14 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to CFM Second Project's documentation!
-=============================================
+Computational Fluid Mechanics: Second Computer Project
+======================================================
+
+This document is online available. The *pdf* format of this documentation may have some inappropriate image size and not-well organized order of image and its description. You are recommended to see this documentation visiting http://cfm02-gatech.readthedocs.org.
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-
+   CodeDevel/contents
    Results/index
 

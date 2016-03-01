@@ -54,6 +54,15 @@
             
   <div class="section" id="test-matrices">
 <h1>Test Matrices<a class="headerlink" href="#test-matrices" title="Permalink to this headline">¶</a></h1>
+<p>Given equation to solve is following Burger&#8217;s equation with having both convection and diffusion terms:</p>
+<div class="math">
+\[\frac{\partial \phi}{\partial t} + U \frac{\partial \phi}{\partial x} = \frac{\partial}{\partial x}\left ( \Gamma \frac{\partial \phi}{\partial x} \right )\]</div>
+<p>One dimensional domain is set to 40 as size with <span class="math">\(5 \leqslant x\leqslant 45\)</span>. Boundary conditions at both left and right node points are set to 0.</p>
+<p>Consider two cases:</p>
+<ul class="simple">
+<li>CASE1: Euler equation without diffusion term: <span class="math">\(\Gamma = 0\)</span></li>
+<li>CASE2: Burger&#8217;s equation with diffusion term: <span class="math">\(\Gamma = 001\)</span></li>
+</ul>
 <div class="section" id="euler-equation-pure-convection-problem">
 <h2>Euler equation (Pure convection problem)<a class="headerlink" href="#euler-equation-pure-convection-problem" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">

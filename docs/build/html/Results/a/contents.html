@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Problem1 - a &mdash; Time Marching Problems 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Time Marching Problems 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Results" href="../index.html" />
+    <link rel="next" title="Problem1 - b" href="../b/contents.html" />
+    <link rel="prev" title="Test Matrices" href="../testMatrices/contents.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../b/contents.html" title="Problem1 - b"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../testMatrices/contents.html" title="Test Matrices"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Time Marching Problems 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Results</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="problem1-a">
+<h1>Problem1 - a<a class="headerlink" href="#problem1-a" title="Permalink to this headline">¶</a></h1>
+<p>Develop a finite difference algorithm for this transportation equation. Use Euler explicit, Euler implicit and Crank-Nicolsol schemes. Employ TDMA for solving implicit terms.</p>
+<div class="section" id="generalized-form-of-numerical-algorithm">
+<h2>Generalized form of numerical algorithm<a class="headerlink" href="#generalized-form-of-numerical-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>In this project, three different methods are supposed to be employed to solve the give transport equation. Many terms of three methods are having very similar form in common, so it is better to construct the algorithm with a parameters that switch the solution methods in specified condition. This is called <span class="math">\(\beta\)</span>-method. In this method of solution, a user-specified parameter <span class="math">\(\beta\)</span> is employed amd used for swtiching the solution method with proper value varying from 0 to 1.</p>
+<p>The given equation is manipulated by employing a new function <span class="math">\(f(\phi)\)</span> that represents the time derivative quantity as a function of dependent variable <span class="math">\(\phi\)</span>.</p>
+<div class="math">
+\[\frac{\partial \phi}{\partial t} = f(\phi)\]</div>
+<p>where,</p>
+<div class="math">
+\[f(\phi) = -U\frac{\partial \phi}{\partial x} + \frac{\partial}{\partial x}\left ( \Gamma \frac{\partial \phi}{\partial x} \right )\]</div>
+<p>This form of equation can then be recast with forward finite difference in time as a explicit form:</p>
+<div class="math">
+\[\phi^{n+1} = \phi^{n} + \Delta t f(\phi^{n})\]</div>
+<p>An implicit form of this finite difference can also be expressed as:</p>
+<div class="math">
+\[\phi^{n+1} = \phi^{n} + \Delta t f(\phi^{n+1})\]</div>
+<p>Here, a new parameter <span class="math">\(\beta\)</span> applies to give finite difference above and creates a new from of finite difference as:</p>
+<div class="math">
+\[\phi^{n+1} = \phi^{n} + \Delta t \left [ (1-\beta)f(\phi^{n}) + \beta f(\phi^{n+1}) \right ]\]</div>
+<p>Applying central finite difference with second order accuracy in space to <span class="math">\(f(\phi)\)</span> gives following:</p>
+<div class="math">
+\[f(\phi^{n}) = -U\frac{\phi^{n}_{i+1} - \phi^{n}_{i-1}}{2 \Delta x} + \Gamma \frac{\phi^{n}_{i+1} - 2\phi^{n}_{i} + \phi^{n}_{i-1}}{\Delta x^2}\]</div>
+<p>Manipulating the above form of solution method gives the generalized form of solution method. This can be applied to any implicit method as well as explicit method. <span class="math">\(\beta = 0\)</span> indicates the Euler explicit method and <span class="math">\(\beta = 1\)</span> reformulates the method to Euler implicit. <span class="math">\(\beta = 0.5\)</span> will form a Crank-Nicolson method.</p>
+<p>In case of Euler explicit method, only one unkown appears in the left hand side at <span class="math">\(i\)</span> position, so it can be solved exclusived for the new time levet at the corresponding position with known values of neighbor node information. Otherwise, three unknowns including left and right neighbors will appear so it should be resolved implicitly. For the implicit solution method, block-iterative method, TDMA for example, should be employed for resolving all the unkown values for the next time level.</p>
+<p>With give generalized method of formulation, the code will construct <span class="math">\(A\)</span> matrix for any case of <span class="math">\(\beta\)</span> value. However, if <span class="math">\(\beta\)</span> is specified with 0, the coefficient matrix <span class="math">\(A\)</span> will be formed as a unity diagonal matrix with all zero values of off-diagonal elements. Thus, the explicit case with <span class="math">\(\beta = 0\)</span> does not necessarily have to perform TDMA method, which is computationally expensive. Rather, it can be exclusively solved as the present Python code is constructed for this purpose.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Problem1 - a</a><ul>
+<li><a class="reference internal" href="#generalized-form-of-numerical-algorithm">Generalized form of numerical algorithm</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../testMatrices/contents.html"
+                        title="previous chapter">Test Matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../b/contents.html"
+                        title="next chapter">Problem1 - b</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/Results/a/contents.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../b/contents.html" title="Problem1 - b"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../testMatrices/contents.html" title="Test Matrices"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Time Marching Problems 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Results</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Sayop Kim.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

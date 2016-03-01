@@ -2,6 +2,21 @@
  Test Matrices
 ==============
 
+Given equation to solve is following Burger's equation with having both convection and diffusion terms:
+
+.. math::
+
+   \frac{\partial \phi}{\partial t} + U \frac{\partial \phi}{\partial x} = \frac{\partial}{\partial x}\left ( \Gamma \frac{\partial \phi}{\partial x} \right )
+
+One dimensional domain is set to 40 as size with :math:`5 \leqslant x\leqslant 45`. Boundary conditions at both left and right node points are set to 0.
+
+Consider two cases:
+
+- CASE1: Euler equation without diffusion term: :math:`\Gamma = 0`
+
+- CASE2: Burger's equation with diffusion term: :math:`\Gamma = 001`
+
+
 -----------------------------------------
  Euler equation (Pure convection problem)
 -----------------------------------------

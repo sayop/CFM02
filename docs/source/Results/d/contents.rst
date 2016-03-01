@@ -26,6 +26,8 @@ In this test, the Euler-Explicit scheme was not employed because it is unconditi
 1. Errors as a function of time step, dt
 
   - The evaluation of time step change effect was done for single case of grid size, N = 4001.
+  - Crank-Nicolson scheme gives better accuracy over the entire set of test cases than Euler implicit, because the CR scheme is a second order accuracy in both space and time.
+  - In general the error drops monotonically with decrease of time step.
 
   .. figure:: ./images/EulerEqn_error_dt.png
      :scale: 60%
@@ -55,6 +57,8 @@ In this test, the Euler-Explicit scheme was not employed because it is unconditi
 2. Errors as a function of grid spacing
 
   - The evaluation of grid resolution effect on error was done for single set of time step, dt = 0.005, so different Courant number.
+  - Increase of grid point number drops the error. But change of error is not much clear with Euler implicit.
+  - Flat profile of errors in Euler implicit case may suggest to run the simulation with much smaller number of grid points in order to see increasing errors with less grid points.
 
   .. figure:: ./images/EulerEqn_error_dx.png
      :scale: 60%
@@ -91,6 +95,11 @@ In this test, only a part of Euler-Explicit cases was employed for analysis beca
 1. Errors as a function of time step, dt
 
   - The evaluation of time step change effect was done for single case of grid size, N = 4001.
+  - As confirmed above, Crank-Nicolson scheme is much accurate compared to other two methods.
+  - Euler explicit and Euler implicit are showing very comparable error values each other, almost same order of magnitude.
+  - Getting error values over dt = 0.005 was not possible for Euler explicit.
+  - This suggest that Euler explicit should be run with Courant number less than 0.5.
+
 
   .. figure:: ./images/BurgersEqn_error_dt.png
      :scale: 60%
@@ -119,6 +128,10 @@ In this test, only a part of Euler-Explicit cases was employed for analysis beca
 |
 
 2. Errors as a function of grid spacing
+
+  - Crank-Nicolson scheme shows dramatic change of RMS error value with different grid size as confirmed in Euler equation problem.
+  - Euler explicit and Euler implicit have same order of magnitude for their accuracy. This is because these two methods have same order of accuracy in both time and space.
+  - N = 6001 case was failed to get stable solution.
 
   .. figure:: ./images/BurgersEqn_error_dx.png
      :scale: 60%
